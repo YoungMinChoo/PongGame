@@ -22,35 +22,22 @@ window.tracer(0)
 pen = t.Turtle()
 pen.speed(0)
 pen.penup()
+pen.hideturtle()
 
 # Left Paddle
 leftPaddle = t.Turtle()
-leftPaddle.speed(0)
-leftPaddle.shape("square")
-leftPaddle.color("white")
-leftPaddle.shapesize(stretch_wid=5, stretch_len=1)
 leftPaddle.penup()
-leftPaddle.goto(-350, 0)
-leftPaddle.hideturtle()
+# leftPaddle.hideturtle()
 
 # Right Paddle
 rightPaddle = t.Turtle()
-rightPaddle.speed(0)
-rightPaddle.shape("square")
-rightPaddle.color("white")
-rightPaddle.shapesize(stretch_wid=5, stretch_len=1)
 rightPaddle.penup()
-rightPaddle.goto(350, 0)
-rightPaddle.hideturtle()
+# rightPaddle.hideturtle()
 
 # Ball
 ball = t.Turtle()
-ball.shape("circle")
-ball.color("white")
-ball.speed(0)
 ball.penup()
-ball.goto(0, 0)
-ball.hideturtle()
+# ball.hideturtle()
 
 # Scoreboard
 board = t.Turtle()
@@ -96,33 +83,42 @@ def button(length, width):
         pen.left(90)
 
 
+def clear_drawings():
+    pen.clear()
+    board.clear()
+    leftPaddle.clear()
+    rightPaddle.clear()
+    ball.clear()
+    # window.clear()
+
+
 def btnclick(x,y):
     global menu
     if 0 < x < 101 and 0 > y > -101:
         print("Start Game")
         print(x, y)
-        window.clearscreen()
+        clear_drawings()
         in_game_env_setup()
     elif 0 < x < 101 and -101 > y > -201:
         print("Rules")
         print(x, y)
-        window.clearscreen()
+        clear_drawings()
     elif 0 < x < 101 and -201 > y > -301:
         print("Highscore")
         print(x, y)
-        window.clearscreen()
+        clear_drawings()
     elif 0 < x < 101 and -301 > y > -401:
         print("Hi")
         print(x, y)
-        window.clearscreen()
+        clear_drawings()
     elif 0 < x < 101 and -401 > y > -501:
         print("Hi")
         print(x, y)
-        window.clearscreen()
+        clear_drawings()
     elif 0 < x < 101 and -501 > y > -601:
         print("Hi")
         print(x, y)
-        window.clearscreen()
+        clear_drawings()
     menu = False
     return menu
 
@@ -130,10 +126,22 @@ def btnclick(x,y):
 def in_game_env_setup():
     window.bgcolor("black")
 
-    ball.showturtle()
-    leftPaddle.showturtle()
-    rightPaddle.showturtle()
-    board.showturtle()
+    ball.shape("circle")
+    ball.color("white")
+    ball.speed(0)
+    ball.goto(0, 0)
+
+    leftPaddle.speed(0)
+    leftPaddle.shape("square")
+    leftPaddle.color("white")
+    leftPaddle.shapesize(stretch_wid=5, stretch_len=1)
+    leftPaddle.goto(-350, 0)
+
+    rightPaddle.speed(0)
+    rightPaddle.shape("square")
+    rightPaddle.color("white")
+    rightPaddle.shapesize(stretch_wid=5, stretch_len=1)
+    rightPaddle.goto(350, 0)
 
     board.goto(0, 260)
     board.write(
@@ -174,6 +182,7 @@ def action():
         playerAScore = playerAScore + 1
         bounces = 0
         ball_speed = 1
+
         # Score
         board.clear()
         board.write(
@@ -187,6 +196,7 @@ def action():
         playerBScore = playerBScore + 1
         bounces = 0
         ball_speed = 1
+
         # Score
         board.clear()
         board.write(
@@ -206,7 +216,7 @@ def action():
             ballYDirection *= 1.2
             ball_speed += 1
 
-
+        # Score
         board.clear()
         board.write(
             "                          Score \nPlayer A: {}      Bounces: {}      Player B: {} \n                          Speed = {} ".format(
@@ -247,7 +257,6 @@ pen.write("QUIT", font=("Arial",12,"normal"))
 #
 window.onscreenclick(btnclick, 1)
 window.listen()
-
 
 
 t.mainloop()
