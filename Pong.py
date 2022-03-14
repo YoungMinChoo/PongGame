@@ -210,15 +210,14 @@ def btnclick(x,y):
 
     # if in pause menu
     else:
-        if 37 < x < 157 and 47 > y > 12:
+        if 37 < x < 237 and 47 > y > 12:
             print("Back to Main Menu")
             clear_drawings()
             menu = True
             main_menu()
         elif 37 < x < 157 and -33 > y > -68:
             print("Unpause")
-            # clear_drawings()
-            # menu = False
+            toggle_pause()
 
 
 def in_game_env_setup():
