@@ -183,12 +183,17 @@ def clear_drawings():
 
 
 def btnclick(x,y):
-    global menu
+    global menu, paused
     # if in main menu
     if menu:
         if 37 < x < 157 and 47 > y > 12:
             print("Start Game")
             clear_drawings()
+            if paused:
+                paused = False
+                ball.showturtle()
+                leftPaddle.showturtle()
+                rightPaddle.showturtle()
             in_game_env_setup()
             menu = False
         elif 37 < x < 157 and -33 > y > -68:
