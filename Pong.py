@@ -1,4 +1,5 @@
 import turtle as t
+import time
 import winsound
 
 # Declarations
@@ -25,20 +26,25 @@ pen.speed(0)
 pen.penup()
 pen.hideturtle()
 
+# Menu pen
+menu_pen = t.Turtle()
+menu_pen.speed(0)
+menu_pen.penup()
+
 # Left Paddle
 leftPaddle = t.Turtle()
 leftPaddle.penup()
-leftPaddle.hideturtle()
+# leftPaddle.hideturtle()
 
 # Right Paddle
 rightPaddle = t.Turtle()
 rightPaddle.penup()
-rightPaddle.hideturtle()
+# rightPaddle.hideturtle()
 
 # Ball
 ball = t.Turtle()
 ball.penup()
-ball.hideturtle()
+# ball.hideturtle()
 
 # Scoreboard
 board = t.Turtle()
@@ -76,22 +82,22 @@ def rightplayerdown():
 
 
 # Menu Buttons
-def button(length, width):
-    pen.begin_fill()
+def button(length, width, a_pen):
+    a_pen.begin_fill()
     for i in range(2):
-        pen.color("Red")
-        pen.pensize(4)
-        pen.pendown()
-        pen.forward(length)
-        pen.right(90)
-        pen.forward(width)
-        pen.right(90)
-        pen.fillcolor("pink")
+        a_pen.color("Red")
+        a_pen.pensize(4)
+        a_pen.pendown()
+        a_pen.forward(length)
+        a_pen.right(90)
+        a_pen.forward(width)
+        a_pen.right(90)
+        a_pen.fillcolor("pink")
 
-    pen.end_fill()
-    pen.color("Black")
-    pen.pensize(1)
-    pen.penup()
+    a_pen.end_fill()
+    a_pen.color("Black")
+    a_pen.pensize(1)
+    a_pen.penup()
 
 
 def toggle_pause():
@@ -100,10 +106,26 @@ def toggle_pause():
         window.bye()
     elif not menu and not paused:
         paused = True
+        pause_menu()
     else:
         paused = False
+        pause_menu()
         action()
 
+
+def pause_menu():
+    if paused:
+        ball.hideturtle()
+        leftPaddle.hideturtle()
+        rightPaddle.hideturtle()
+        menu_pen.goto(-380, 290)
+        button(750, 550, menu_pen)
+    else:
+        menu_pen.clear()
+        ball.showturtle()
+        leftPaddle.showturtle()
+        rightPaddle.showturtle()
+        action()
 
 
 def clear_drawings():
@@ -258,25 +280,25 @@ def action():
 # Draw main menu and buttons
 pen.goto(37, 47)
 pen.setheading(0)
-button(120, 35)
+button(120, 35, pen)
 pen.goto(45, 20)
 pen.write("START GAME!", font=("Arial",12,"bold"))
 
 pen.goto(37, -33)
 pen.setheading(0)
-button(120, 35)
+button(120, 35, pen)
 pen.goto(45, -60)
 pen.write("RULES", font=("Arial",12,"bold"))
 
 pen.goto(37, -113)
 pen.setheading(0)
-button(120, 35)
+button(120, 35, pen)
 pen.goto(45, -140)
 pen.write("HIGH SCORE", font=("Arial",12,"bold"))
 
 pen.goto(37, -193)
 pen.setheading(0)
-button(120, 35)
+button(120, 35, pen)
 pen.goto(45, -220)
 pen.write("QUIT", font=("Arial",12,"bold"))
 #
