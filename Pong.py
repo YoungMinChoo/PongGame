@@ -76,12 +76,21 @@ def rightplayerdown():
 
 # Menu Buttons
 def button(length, width):
+    pen.begin_fill()
     for i in range(2):
+        pen.color("Red")
+        pen.pensize(4)
+        pen.pendown()
         pen.forward(length)
-        pen.left(90)
+        pen.right(90)
         pen.forward(width)
-        pen.left(90)
+        pen.right(90)
+        pen.fillcolor("pink")
 
+    pen.end_fill()
+    pen.color("Black")
+    pen.pensize(1)
+    pen.penup()
 
 def clear_drawings():
     pen.clear()
@@ -89,36 +98,24 @@ def clear_drawings():
     leftPaddle.clear()
     rightPaddle.clear()
     ball.clear()
-    # window.clear()
 
 
 def btnclick(x,y):
     global menu
-    if 0 < x < 101 and 0 > y > -101:
+    if 37 < x < 157 and 47 > y > 12:
         print("Start Game")
-        print(x, y)
-        clear_drawings()
-        in_game_env_setup()
-    elif 0 < x < 101 and -101 > y > -201:
+        # clear_drawings()
+        # in_game_env_setup()
+    elif 37 < x < 157 and -33 > y > -68:
         print("Rules")
-        print(x, y)
-        clear_drawings()
-    elif 0 < x < 101 and -201 > y > -301:
+        # clear_drawings()
+    elif 37 < x < 157 and -113 > y > -148:
         print("Highscore")
-        print(x, y)
-        clear_drawings()
-    elif 0 < x < 101 and -301 > y > -401:
-        print("Hi")
-        print(x, y)
-        clear_drawings()
-    elif 0 < x < 101 and -401 > y > -501:
-        print("Hi")
-        print(x, y)
-        clear_drawings()
-    elif 0 < x < 101 and -501 > y > -601:
-        print("Hi")
-        print(x, y)
-        clear_drawings()
+        # clear_drawings()
+    elif 37 < x < 157 and -193 > y > -223:
+        print("Quit")
+        # clear_drawings()
+    print(x, y)
     menu = False
     return menu
 
@@ -241,21 +238,36 @@ def action():
 
     window.ontimer(action, 1)
 
-# Draw menu
-pen.goto(8, -46)
-pen.write("START GAME!", font=("Arial",12,"normal"))
+# Draw main menu and buttons
+pen.goto(37, 47)
+pen.setheading(0)
+button(120, 35)
+pen.goto(45, 20)
+pen.write("START GAME!", font=("Arial",12,"bold"))
 
-pen.goto(6, -145)
-pen.write("RULES", font=("Arial",12,"normal"))
+pen.goto(37, -33)
+pen.setheading(0)
+button(120, 35)
+pen.goto(45, -60)
+pen.write("RULES", font=("Arial",12,"bold"))
 
-pen.goto(3, -248)
-pen.write("HIGH SCORE", font=("Arial",12,"normal"))
+pen.goto(37, -113)
+pen.setheading(0)
+button(120, 35)
+pen.goto(45, -140)
+pen.write("HIGH SCORE", font=("Arial",12,"bold"))
 
-pen.goto(4, -343)
-pen.write("QUIT", font=("Arial",12,"normal"))
-
+pen.goto(37, -193)
+pen.setheading(0)
+button(120, 35)
+pen.goto(45, -220)
+pen.write("QUIT", font=("Arial",12,"bold"))
 #
 window.onscreenclick(btnclick, 1)
+
+# add function for different menus depending on if in game or main menu
+window.onkeypress(window.bye, 'Escape')
+
 window.listen()
 
 
