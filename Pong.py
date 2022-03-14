@@ -1,5 +1,4 @@
 import turtle as t
-import time
 import winsound
 
 # Declarations
@@ -30,6 +29,7 @@ pen.hideturtle()
 menu_pen = t.Turtle()
 menu_pen.speed(0)
 menu_pen.penup()
+menu_pen.hideturtle()
 
 # Left Paddle
 leftPaddle = t.Turtle()
@@ -115,11 +115,29 @@ def toggle_pause():
 
 def pause_menu():
     if paused:
+        # Hide the elements in game
         ball.hideturtle()
         leftPaddle.hideturtle()
         rightPaddle.hideturtle()
+
+        # Draw the menu box
         menu_pen.goto(-380, 290)
         button(750, 550, menu_pen)
+
+        # Draw buttons
+        menu_pen.goto(37, 47)
+        menu_pen.setheading(0)
+        button(200, 35, menu_pen)
+        menu_pen.goto(45, 20)
+        menu_pen.write("Back to Main Menu", font=("Arial",12,"bold"))
+
+        menu_pen.goto(37, -33)
+        menu_pen.setheading(0)
+        button(120, 35, menu_pen)
+        menu_pen.goto(45, -60)
+        menu_pen.write("Unpause", font=("Arial",12,"bold"))
+
+
     else:
         menu_pen.clear()
         ball.showturtle()
@@ -138,22 +156,36 @@ def clear_drawings():
 
 def btnclick(x,y):
     global menu
-    if 37 < x < 157 and 47 > y > 12:
-        print("Start Game")
-        clear_drawings()
-        in_game_env_setup()
-        menu = False
-    elif 37 < x < 157 and -33 > y > -68:
-        print("Rules")
-        # clear_drawings()
-        # menu = False
-    elif 37 < x < 157 and -113 > y > -148:
-        print("Highscore")
-        # clear_drawings()
-        # menu = False
-    elif 37 < x < 157 and -193 > y > -223:
-        window.bye()
-    print(x, y)
+    # if in main menu
+    if menu:
+        if 37 < x < 157 and 47 > y > 12:
+            print("Start Game")
+            clear_drawings()
+            in_game_env_setup()
+            menu = False
+        elif 37 < x < 157 and -33 > y > -68:
+            print("Rules")
+            # clear_drawings()
+            # menu = False
+        elif 37 < x < 157 and -113 > y > -148:
+            print("Highscore")
+            # clear_drawings()
+            # menu = False
+        elif 37 < x < 157 and -193 > y > -223:
+            window.bye()
+        print(x, y)
+
+    # if in pause menu
+    else:
+        if 37 < x < 157 and 47 > y > 12:
+            print("Back to Main Menu")
+            clear_drawings()
+            in_game_env_setup()
+            menu = False
+        elif 37 < x < 157 and -33 > y > -68:
+            print("Unpause")
+            # clear_drawings()
+            # menu = False
 
 
 def in_game_env_setup():
@@ -277,31 +309,34 @@ def action():
     else:
         window.update()
 
-# Draw main menu and buttons
-pen.goto(37, 47)
-pen.setheading(0)
-button(120, 35, pen)
-pen.goto(45, 20)
-pen.write("START GAME!", font=("Arial",12,"bold"))
+def main_menu():
+    # Draw main menu and buttons
+    pen.goto(37, 47)
+    pen.setheading(0)
+    button(120, 35, pen)
+    pen.goto(45, 20)
+    pen.write("START GAME!", font=("Arial",12,"bold"))
 
-pen.goto(37, -33)
-pen.setheading(0)
-button(120, 35, pen)
-pen.goto(45, -60)
-pen.write("RULES", font=("Arial",12,"bold"))
+    pen.goto(37, -33)
+    pen.setheading(0)
+    button(120, 35, pen)
+    pen.goto(45, -60)
+    pen.write("RULES", font=("Arial",12,"bold"))
 
-pen.goto(37, -113)
-pen.setheading(0)
-button(120, 35, pen)
-pen.goto(45, -140)
-pen.write("HIGH SCORE", font=("Arial",12,"bold"))
+    pen.goto(37, -113)
+    pen.setheading(0)
+    button(120, 35, pen)
+    pen.goto(45, -140)
+    pen.write("HIGH SCORE", font=("Arial",12,"bold"))
 
-pen.goto(37, -193)
-pen.setheading(0)
-button(120, 35, pen)
-pen.goto(45, -220)
-pen.write("QUIT", font=("Arial",12,"bold"))
-#
+    pen.goto(37, -193)
+    pen.setheading(0)
+    button(120, 35, pen)
+    pen.goto(45, -220)
+    pen.write("QUIT", font=("Arial",12,"bold"))
+
+
+main_menu()
 window.onscreenclick(btnclick, 1)
 
 # add function for different menus depending on if in game or main menu
