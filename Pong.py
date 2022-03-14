@@ -110,7 +110,34 @@ def toggle_pause():
     else:
         paused = False
         pause_menu()
-        action()
+
+
+def main_menu():
+    window.bgcolor("White")
+    # Draw main menu and buttons
+    pen.goto(37, 47)
+    pen.setheading(0)
+    button(120, 35, pen)
+    pen.goto(45, 20)
+    pen.write("START GAME!", font=("Arial",12,"bold"))
+
+    pen.goto(37, -33)
+    pen.setheading(0)
+    button(120, 35, pen)
+    pen.goto(45, -60)
+    pen.write("RULES", font=("Arial",12,"bold"))
+
+    pen.goto(37, -113)
+    pen.setheading(0)
+    button(120, 35, pen)
+    pen.goto(45, -140)
+    pen.write("HIGH SCORE", font=("Arial",12,"bold"))
+
+    pen.goto(37, -193)
+    pen.setheading(0)
+    button(120, 35, pen)
+    pen.goto(45, -220)
+    pen.write("QUIT", font=("Arial",12,"bold"))
 
 
 def pause_menu():
@@ -147,6 +174,7 @@ def pause_menu():
 
 
 def clear_drawings():
+    menu_pen.clear()
     pen.clear()
     board.clear()
     leftPaddle.clear()
@@ -180,8 +208,8 @@ def btnclick(x,y):
         if 37 < x < 157 and 47 > y > 12:
             print("Back to Main Menu")
             clear_drawings()
-            in_game_env_setup()
-            menu = False
+            menu = True
+            main_menu()
         elif 37 < x < 157 and -33 > y > -68:
             print("Unpause")
             # clear_drawings()
@@ -308,32 +336,6 @@ def action():
         window.ontimer(action, 1)
     else:
         window.update()
-
-def main_menu():
-    # Draw main menu and buttons
-    pen.goto(37, 47)
-    pen.setheading(0)
-    button(120, 35, pen)
-    pen.goto(45, 20)
-    pen.write("START GAME!", font=("Arial",12,"bold"))
-
-    pen.goto(37, -33)
-    pen.setheading(0)
-    button(120, 35, pen)
-    pen.goto(45, -60)
-    pen.write("RULES", font=("Arial",12,"bold"))
-
-    pen.goto(37, -113)
-    pen.setheading(0)
-    button(120, 35, pen)
-    pen.goto(45, -140)
-    pen.write("HIGH SCORE", font=("Arial",12,"bold"))
-
-    pen.goto(37, -193)
-    pen.setheading(0)
-    button(120, 35, pen)
-    pen.goto(45, -220)
-    pen.write("QUIT", font=("Arial",12,"bold"))
 
 
 main_menu()
