@@ -1,6 +1,66 @@
 import turtle as t
 import winsound
 
+# Declarations
+ball_speed = 1
+base_speed = 0.4
+playerAScore, playerBScore = 0, 0
+bounces = 0
+menu = True
+ballXDirection, ballYDirection = base_speed, base_speed
+
+# Initializations
+
+# Make the screen
+window = t.Screen()
+window.title("Pong Game")
+window.bgcolor("white")
+window.setup(width=800, height=600)
+window.tracer(0)
+
+# Pen for writing
+pen = t.Turtle()
+pen.speed(0)
+pen.penup()
+
+# Left Paddle
+leftPaddle = t.Turtle()
+leftPaddle.speed(0)
+leftPaddle.shape("square")
+leftPaddle.color("white")
+leftPaddle.shapesize(stretch_wid=5, stretch_len=1)
+leftPaddle.penup()
+leftPaddle.goto(-350, 0)
+leftPaddle.hideturtle()
+
+# Right Paddle
+rightPaddle = t.Turtle()
+rightPaddle.speed(0)
+rightPaddle.shape("square")
+rightPaddle.color("white")
+rightPaddle.shapesize(stretch_wid=5, stretch_len=1)
+rightPaddle.penup()
+rightPaddle.goto(350, 0)
+rightPaddle.hideturtle()
+
+# Ball
+ball = t.Turtle()
+ball.shape("circle")
+ball.color("white")
+ball.speed(0)
+ball.penup()
+ball.goto(0, 0)
+ball.hideturtle()
+
+# Scoreboard
+board = t.Turtle()
+board.speed(0)
+board.color("white")
+board.penup()
+board.hideturtle()
+
+
+# Functions
 
 # Movement
 def leftplayerup():
@@ -27,60 +87,67 @@ def rightplayerdown():
     rightPaddle.sety(y)
 
 
-# Declarations
-ball_speed = 1
-base_speed = 0.4
-playerAScore, playerBScore = 0, 0
-bounces = 0
+# Menu Buttons
+def button(length, width):
+    for i in range(2):
+        pen.forward(length)
+        pen.left(90)
+        pen.forward(width)
+        pen.left(90)
 
-# Make the screen
-window = t.Screen()
-window.title("Pong Game")
-window.bgcolor("black")
-window.setup(width=800, height=600)
-window.tracer(0)
 
-# Left Paddle
-leftPaddle = t.Turtle()
-leftPaddle.speed(0)
-leftPaddle.shape("square")
-leftPaddle.color("white")
-leftPaddle.shapesize(stretch_wid=5, stretch_len=1)
-leftPaddle.penup()
-leftPaddle.goto(-350, 0)
+def btnclick(x,y):
+    global menu
+    if 0 < x < 101 and 0 > y > -101:
+        print("Start Game")
+        print(x, y)
+        window.clearscreen()
+        in_game_env_setup()
+    elif 0 < x < 101 and -101 > y > -201:
+        print("Rules")
+        print(x, y)
+        window.clearscreen()
+    elif 0 < x < 101 and -201 > y > -301:
+        print("Highscore")
+        print(x, y)
+        window.clearscreen()
+    elif 0 < x < 101 and -301 > y > -401:
+        print("Hi")
+        print(x, y)
+        window.clearscreen()
+    elif 0 < x < 101 and -401 > y > -501:
+        print("Hi")
+        print(x, y)
+        window.clearscreen()
+    elif 0 < x < 101 and -501 > y > -601:
+        print("Hi")
+        print(x, y)
+        window.clearscreen()
+    menu = False
+    return menu
 
-# Right Paddle
-rightPaddle = t.Turtle()
-rightPaddle.speed(0)
-rightPaddle.shape("square")
-rightPaddle.color("white")
-rightPaddle.shapesize(stretch_wid=5, stretch_len=1)
-rightPaddle.penup()
-rightPaddle.goto(350, 0)
 
-# Ball
-ball = t.Turtle()
-ball.shape("circle")
-ball.color("white")
-ball.speed(0)
-ball.penup()
-ball.goto(0, 0)
-ballXDirection, ballYDirection = base_speed, base_speed
+def in_game_env_setup():
+    window.bgcolor("black")
 
-board = t.Turtle()
-board.speed(0)
-board.color("white")
-board.penup()
-board.hideturtle()
-board.goto(0, 260)
-board.write(
+    ball.showturtle()
+    leftPaddle.showturtle()
+    rightPaddle.showturtle()
+    board.showturtle()
+
+    board.goto(0, 260)
+    board.write(
     "                          Score \nPlayer A: {}      Bounces: {}      Player B: {} \n                          Speed = {} ".format(
         0, 0, 0, 1), align="center")
-window.listen()
-window.onkeypress(leftplayerup, 'w')
-window.onkeypress(leftplayerdown, 's')
-window.onkeypress(rightplayerup, 'Up')
-window.onkeypress(rightplayerdown, 'Down')
+
+    # Controls
+    window.listen()
+    window.onkeypress(leftplayerup, 'w')
+    window.onkeypress(leftplayerdown, 's')
+    window.onkeypress(rightplayerup, 'Up')
+    window.onkeypress(rightplayerdown, 'Down')
+
+    action()
 
 
 def action():
@@ -164,6 +231,23 @@ def action():
 
     window.ontimer(action, 1)
 
+# Draw menu
+pen.goto(8, -46)
+pen.write("START GAME!", font=("Arial",12,"normal"))
 
-action()
+pen.goto(6, -145)
+pen.write("RULES", font=("Arial",12,"normal"))
+
+pen.goto(3, -248)
+pen.write("HIGH SCORE", font=("Arial",12,"normal"))
+
+pen.goto(4, -343)
+pen.write("QUIT", font=("Arial",12,"normal"))
+
+#
+window.onscreenclick(btnclick, 1)
+window.listen()
+
+
+
 t.mainloop()
